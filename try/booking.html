@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vehicle Booking Experience</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(rgba(20, 20, 31, .7), rgba(20, 20, 31, .7)), url(bg-hero.jpg);
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            min-height: 100vh;
+        }
+        .booking-container {
+            max-width: 800px;
+            width: 90%;
+            margin: 2rem auto;
+        }
+        .booking-info {
+            font-size: 1.1rem;
+            line-height: 2;
+        }
+        .vehicle-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        .vehicle-option {
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .vehicle-option:hover {
+            transform: translateY(-5px);
+        }
+        .vehicle-option.selected {
+            border-color: #10B981;
+            background-color: #ECFDF5;
+        }
+        .date-picker {
+            background: none;
+            border: 2px solid #10B981;
+            color: #333;
+            font-size: 1rem;
+            padding: 0.75rem;
+            border-radius: 0.5rem;
+            width: 100%;
+            outline: none;
+        }
+        .date-picker:focus {
+            border-color: #047857;
+            box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2);
+        }
+        .service-option {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem;
+            border-radius: 0.5rem;
+            background-color: white;
+            margin-bottom: 0.5rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .service-option:hover {
+            background-color: #ECFDF5;
+        }
+        .service-option.selected {
+            background-color: #D1FAE5;
+            border: 2px solid #10B981;
+        }
+        .service-option-checkbox {
+            width: 1.25rem;
+            height: 1.25rem;
+            border-radius: 50%;
+            border: 2px solid #10B981;
+            margin-right: 0.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .service-option.selected .service-option-checkbox::after {
+            content: '';
+            width: 0.75rem;
+            height: 0.75rem;
+            border-radius: 50%;
+            background-color: #10B981;
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center min-h-screen py-8">
+    <div class="booking-container">
+        <div class="bg-white p-10 rounded-xl shadow-2xl border-2 border-green-500">
+            <h1 class="text-3xl font-bold mb-8 text-green-600 text-center">Vehicle Booking Experience</h1>
+            
+            <!-- Step 1: Vehicle Type Selection -->
+            <div class="mb-8" id="step-vehicle-type">
+                <h2 class="text-xl font-bold mb-4 text-green-700">Choose Your Vehicle Type</h2>
+                <div class="vehicle-gallery">
+                    <div class="vehicle-option p-4 border-2 rounded-lg text-center" data-vehicle="car">
+                        <img src="car.jpg" alt="Car" class="w-full h-24 object-contain mb-2">
+                        <p class="font-semibold">Car</p>
+                    </div>
+                    <div class="vehicle-option p-4 border-2 rounded-lg text-center" data-vehicle="bike">
+                        <img src="bike.jpg" alt="Bike" class="w-full h-24 object-contain mb-2">
+                        <p class="font-semibold">Bike</p>
+                    </div>
+                    <div class="vehicle-option p-4 border-2 rounded-lg text-center" data-vehicle="scooty">
+                        <img src="scooty.jpg" alt="Scooty" class="w-full h-24 object-contain mb-2">
+                        <p class="font-semibold">Scooty</p>
+                    </div>
+                    <div class="vehicle-option p-4 border-2 rounded-lg text-center" data-vehicle="minivan">
+                        <img src="minivan.jpg" alt="Minivan" class="w-full h-24 object-contain mb-2">
+                        <p class="font-semibold">Minivan</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Step 2: Vehicle Model Selection -->
+            <div class="mb-8" id="step-vehicle-model">
+                <h2 class="text-xl font-bold mb-4 text-green-700">Choose Your Model</h2>
+                <div class="grid grid-cols-1 gap-6">
+                    <div class="vehicle-models-container">
+                        <!-- Models will be dynamically added here -->
+                    </div>
+                    <div id="model-preview" class="flex flex-col items-center">
+                        <img id="model-image" src="" alt="Vehicle Model" class="h-36 object-contain mb-2 hidden">
+                        <p id="model-name" class="font-semibold text-green-700 text-lg"></p>
+                        <p id="model-price" class="text-gray-600"></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 3: Rental Period -->
+            <div class="mb-8" id="step-rental-period">
+                <h2 class="text-xl font-bold mb-4 text-green-700">Select Rental Period</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="bg-green-50 p-6 rounded-lg">
+                        <h3 class="font-semibold mb-3 text-green-700">Pickup Date</h3>
+                        <input type="date" id="pickup-date" class="date-picker">
+                    </div>
+                    <div class="bg-green-50 p-6 rounded-lg">
+                        <h3 class="font-semibold mb-3 text-green-700">Return Date</h3>
+                        <input type="date" id="return-date" class="date-picker">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 4: Additional Services -->
+            <div class="mb-8" id="step-additional-services">
+                <h2 class="text-xl font-bold mb-4 text-green-700">Enhance Your Experience</h2>
+                <div class="bg-green-50 p-6 rounded-lg">
+                    <div class="service-option" data-service="insurance">
+                        <div class="service-option-checkbox"></div>
+                        <div>
+                            <p class="font-semibold text-green-700">Insurance Protection</p>
+                            <p class="text-sm text-gray-600">Full coverage for peace of mind (₹1,650/day)</p>
+                        </div>
+                    </div>
+                    <div class="service-option" data-service="gps">
+                        <div class="service-option-checkbox"></div>
+                        <div>
+                            <p class="font-semibold text-green-700">GPS Navigation</p>
+                            <p class="text-sm text-gray-600">Never get lost on your journey (₹825/day)</p>
+                        </div>
+                    </div>
+                    <div class="service-option" data-service="child-seat">
+                        <div class="service-option-checkbox"></div>
+                        <div>
+                            <p class="font-semibold text-green-700">Child Safety Seat</p>
+                            <p class="text-sm text-gray-600">Safe travel for younger passengers (₹1,240/day)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Get Quote Button -->
+            <div class="text-center mb-8">
+                <button id="get-quote-btn" class="bg-green-500 text-white px-10 py-3 rounded-lg text-lg font-semibold hover:bg-green-600 transform hover:scale-105 transition-all duration-200">
+                    Get Your Quote
+                </button>
+            </div>
+
+            <!-- Booking Summary -->
+            <div id="booking-summary" class="hidden">
+                <div class="border-t-2 border-green-200 pt-8">
+                    <h2 class="text-2xl font-bold mb-6 text-green-700 text-center">Your Booking Summary</h2>
+                    
+                    <div class="booking-info space-y-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div class="bg-green-50 p-6 rounded-lg">
+                                <h3 class="font-semibold text-green-700 mb-3">Vehicle Details</h3>
+                                <p><span class="font-semibold text-green-700">Type:</span> <span id="summary-vehicle"></span></p>
+                                <p><span class="font-semibold text-green-700">Model:</span> <span id="summary-model"></span></p>
+                            </div>
+                            <div class="bg-green-50 p-6 rounded-lg">
+                                <h3 class="font-semibold text-green-700 mb-3">Rental Details</h3>
+                                <p><span class="font-semibold text-green-700">Pickup:</span> <span id="summary-pickup"></span></p>
+                                <p><span class="font-semibold text-green-700">Return:</span> <span id="summary-return"></span></p>
+                                <p><span class="font-semibold text-green-700">Duration:</span> <span id="summary-days"></span> days</p>
+                            </div>
+                        </div>
+
+                        <div class="bg-green-50 p-6 rounded-lg mt-6">
+                            <h3 class="text-xl font-bold mb-4 text-green-700">Price Details</h3>
+                            <div id="price-breakdown" class="space-y-2"></div>
+                            <div class="mt-6 pt-4 border-t-2 border-green-200">
+                                <p class="text-xl"><span class="font-bold text-green-700">Total Price:</span> ₹<span id="total-cost">0.00</span></p>
+                            </div>
+                        </div>
+
+                        <div class="text-center mt-8">
+                            <button id="confirm-booking-btn" class="bg-green-600 text-white px-10 py-3 rounded-lg text-lg font-semibold hover:bg-green-700 transform hover:scale-105 transition-all duration-200">
+                                Complete Booking
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Booking Confirmation Message -->
+            <div id="booking-confirmation" class="hidden">
+                <div class="bg-green-100 p-8 rounded-lg text-center">
+                    <svg class="w-16 h-16 text-green-500 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                    </svg>
+                    <h3 class="text-2xl font-bold text-green-700 mb-4">Booking Confirmed!</h3>
+                    <p class="text-green-700 mb-2">Thank you for your reservation.</p>
+                    <p class="text-green-700 font-semibold text-lg mb-4">Your confirmation code: <span id="confirmation-code" class="font-bold"></span></p>
+                    <p class="text-sm text-gray-600 mb-6">A confirmation email will be sent shortly with all your booking details.</p>
+                </div>
+                <div class="text-center mt-8">
+                    <button id="new-booking-btn" class="bg-green-500 text-white px-8 py-3 rounded-lg text-lg font-semibold hover:bg-green-600 transform hover:scale-105 transition-all duration-200">
+                        Make Another Booking
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const VEHICLE_MODELS = {
+                car: {
+                    "Toyota Camry": { image: "camry.jpg", description: "Comfortable sedan with excellent fuel economy" },
+                    "Honda Civic": { image: "honda civic.jpg", description: "Reliable and sporty compact car" },
+                    "Maruti Suzuki Dzire": { image: "car 1.jpg", description: "Compact sedan with good space" },
+                    "Hyundai Aura": { image: "car 4.jpg", description: "Modern design with great features" },
+                    "Maruti Suzuki WagonR": { image: "car 2.jpg", description: "Tall boy design with spacious interior" }
+                },
+                bike: {
+                    "Tvs Raider": { image: "bike 1.jpg", description: "Sporty commuter with good performance" },
+                    "Hero Splendor": { image: "bike 2.png", description: "India's most popular fuel-efficient bike" },
+                    "Royal Enfield": { image: "bike 3.png", description: "Classic styling with thumping engine" },
+                    "Harley Davidson X400": { image: "bike 4.jpg", description: "Premium cruiser with powerful engine" },
+                    "Java 42 bobber": { image: "bike 5.jpg", description: "Retro styling with modern mechanics" }
+                },
+                scooty: {
+                    "Honda Activa": { image: "scooty 1.jpg", description: "Most reliable scooter in the market" },
+                    "TVS Jupiter": { image: "scooty 2.jpg", description: "Feature-rich comfortable scooter" },
+                    "Suzuki Access": { image: "scooty 3.jpg", description: "Premium scooter with good mileage" },
+                    "Vespa": { image: "scooty 4.jpg", description: "Italian design with premium features" },
+                    "Suzuki Avenis": { image: "scooty 5.png", description: "Sporty scooter for young riders" }
+                },
+                minivan: {
+                    "Toyota Sienna": { image: "minivan 1.jpg", description: "Spacious family van with luxury features" },
+                    "Honda Odyssey": { image: "minivan 2.jpg", description: "Feature-packed van for large families" },
+                    "Kia Carnival": { image: "minivan 3.jpg", description: "Premium minivan with executive features" },
+                    "Toyota Innova": { image: "minivan 4.png", description: "Reliable and comfortable people carrier" },
+                    "Mercedes V-Class": { image: "minivan 5.jpg", description: "Luxury minivan with top-tier amenities" }
+                }
+            };
+
+            // Convert USD to INR (1 USD = approx 82.5 INR)
+            const usdToInr = 82.5;
+            
+            // Updated rates in INR
+            const VEHICLE_RATES = { 
+                car: Math.round(50 * usdToInr), 
+                bike: Math.round(20 * usdToInr), 
+                scooty: Math.round(15 * usdToInr), 
+                minivan: Math.round(80 * usdToInr) 
+            };
+            
+            const ADDITIONAL_SERVICES = { 
+                insurance: Math.round(20 * usdToInr), 
+                gps: Math.round(10 * usdToInr), 
+                'child-seat': Math.round(15 * usdToInr) 
+            };
+            
+            let selectedVehicleType = null;
+            let selectedVehicleModel = null;
+            let selectedServices = [];
+            
+            const vehicleOptions = document.querySelectorAll('.vehicle-option');
+            const modelsContainer = document.querySelector('.vehicle-models-container');
+            const modelImage = document.getElementById('model-image');
+            const modelName = document.getElementById('model-name');
+            const modelPrice = document.getElementById('model-price');
+            const serviceOptions = document.querySelectorAll('.service-option');
+            const getQuoteBtn = document.getElementById('get-quote-btn');
+            const confirmBookingBtn = document.getElementById('confirm-booking-btn');
+            const newBookingBtn = document.getElementById('new-booking-btn');
+            
+            // Set tomorrow as the minimum date for pickup
+            const tomorrow = new Date();
+            tomorrow.setDate(tomorrow.getDate() + 1);
+            document.getElementById('pickup-date').min = tomorrow.toISOString().split('T')[0];
+            
+            // Vehicle type selection
+            vehicleOptions.forEach(option => {
+                option.addEventListener('click', () => {
+                    vehicleOptions.forEach(o => o.classList.remove('selected'));
+                    option.classList.add('selected');
+                    selectedVehicleType = option.dataset.vehicle;
+                    updateVehicleModels(selectedVehicleType);
+                    modelImage.classList.add('hidden');
+                    modelName.textContent = '';
+                    modelPrice.textContent = '';
+                    selectedVehicleModel = null;
+                });
+            });
+            
+            // Service options selection
+            serviceOptions.forEach(option => {
+                option.addEventListener('click', () => {
+                    option.classList.toggle('selected');
+                    const service = option.dataset.service;
+                    
+                    if (option.classList.contains('selected')) {
+                        if (!selectedServices.includes(service)) {
+                            selectedServices.push(service);
+                        }
+                    } else {
+                        selectedServices = selectedServices.filter(s => s !== service);
+                    }
+                });
+            });
+            
+            // Update vehicle models based on selected type
+            function updateVehicleModels(category) {
+                modelsContainer.innerHTML = '';
+                
+                // Create model selection grid
+                const modelGrid = document.createElement('div');
+                modelGrid.className = 'grid grid-cols-2 md:grid-cols-3 gap-4';
+                
+                Object.keys(VEHICLE_MODELS[category]).forEach(model => {
+                    const modelCard = document.createElement('div');
+                    modelCard.className = 'p-4 border-2 rounded-lg text-center cursor-pointer hover:border-green-500 transition-all duration-200';
+                    modelCard.dataset.model = model;
+                    
+                    modelCard.innerHTML = `
+                        <img src="${VEHICLE_MODELS[category][model].image}" alt="${model}" class="w-full h-24 object-contain mb-2">
+                        <p class="font-semibold">${model}</p>
+                    `;
+                    
+                    modelCard.addEventListener('click', () => {
+                        // Remove selection from all model cards
+                        document.querySelectorAll('[data-model]').forEach(card => {
+                            card.classList.remove('border-green-500', 'bg-green-50');
+                        });
+                        
+                        // Add selection to clicked card
+                        modelCard.classList.add('border-green-500', 'bg-green-50');
+                        
+                        // Update model preview
+                        selectedVehicleModel = model;
+                        modelImage.src = VEHICLE_MODELS[category][model].image;
+                        modelImage.classList.remove('hidden');
+                        modelName.textContent = model;
+                        modelPrice.textContent = `₹${VEHICLE_RATES[category].toLocaleString('en-IN')}/day - ${VEHICLE_MODELS[category][model].description}`;
+                    });
+                    
+                    modelGrid.appendChild(modelCard);
+                });
+                
+                modelsContainer.appendChild(modelGrid);
+            }
+            
+            // Update return date min based on pickup date
+            document.getElementById('pickup-date').addEventListener('change', function() {
+                if (this.value) {
+                    document.getElementById('return-date').min = this.value;
+                    // If return date is before pickup date, reset it
+                    if (document.getElementById('return-date').value && 
+                        new Date(document.getElementById('return-date').value) < new Date(this.value)) {
+                        document.getElementById('return-date').value = this.value;
+                    }
+                }
+            });
+            
+            // Format currency in Indian Rupees
+            function formatINR(amount) {
+                return amount.toLocaleString('en-IN', {
+                    maximumFractionDigits: 0
+                });
+            }
+            
+            // Get quote button click
+            getQuoteBtn.addEventListener('click', () => {
+                if (!validateInputs()) return;
+                
+                const pickupDate = document.getElementById('pickup-date').value;
+                const returnDate = document.getElementById('return-date').value;
+                
+                const startDate = new Date(pickupDate);
+                const endDate = new Date(returnDate);
+                const days = Math.max(1, Math.ceil((endDate - startDate) / (1000 * 60 * 60 * 24)) + 1);
+                
+                let totalCost = days * VEHICLE_RATES[selectedVehicleType];
+                let priceBreakdown = `
+                    <div class="flex justify-between items-center py-2">
+                        <span class="font-semibold text-green-700">${selectedVehicleModel}</span>
+                        <span>₹${formatINR(VEHICLE_RATES[selectedVehicleType])} × ${days} days</span>
+                        <span class="font-semibold">₹${formatINR(VEHICLE_RATES[selectedVehicleType] * days)}</span>
+                    </div>
+                `;
+                
+                // Add selected services to price breakdown
+                let servicesCost = 0;
+                
+                selectedServices.forEach(service => {
+                    const serviceName = service.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+                    const serviceCost = ADDITIONAL_SERVICES[service] * days;
+                    servicesCost += serviceCost;
+                    
+                    priceBreakdown += `
+                        <div class="flex justify-between items-center py-2 border-t border-green-100">
+                            <span>${serviceName}</span>
+                            <span>₹${formatINR(ADDITIONAL_SERVICES[service])} × ${days} days</span>
+                            <span class="font-semibold">₹${formatINR(serviceCost)}</span>
+                        </div>
+                    `;
+                });
+                
+                totalCost += servicesCost;
+                
+                // Update summary
+                document.getElementById('summary-vehicle').textContent = selectedVehicleType.charAt(0).toUpperCase() + selectedVehicleType.slice(1);
+                document.getElementById('summary-model').textContent = selectedVehicleModel;
+                document.getElementById('summary-pickup').textContent = formatDate(pickupDate);
+                document.getElementById('summary-return').textContent = formatDate(returnDate);
+                document.getElementById('summary-days').textContent = days;
+                document.getElementById('price-breakdown').innerHTML = priceBreakdown;
+                document.getElementById('total-cost').textContent = formatINR(totalCost);
+                
+                // Show booking summary
+                document.getElementById('booking-summary').classList.remove('hidden');
+                
+                // Scroll to booking summary
+                document.getElementById('booking-summary').scrollIntoView({ behavior: 'smooth' });
+            });
+            
+            // Confirm booking button click
+            confirmBookingBtn.addEventListener('click', () => {
+                if (!validateInputs()) return;
+
+                const bookingData = {
+                    vehicleType: selectedVehicleType,
+                    vehicleModel: selectedVehicleModel,
+                    pickupDate: document.getElementById('pickup-date').value,
+                    returnDate: document.getElementById('return-date').value,
+                    durationDays: document.getElementById('summary-days').textContent,
+                    totalAmount: parseFloat(document.getElementById('total-cost').textContent.replace(/,/g, '')),
+                    services: selectedServices,
+                    formattedPickupDate: document.getElementById('summary-pickup').textContent,
+                    formattedReturnDate: document.getElementById('summary-return').textContent,
+                    priceBreakdown: document.getElementById('price-breakdown').innerHTML,
+                    confirmationCode: generateConfirmationCode()
+                };
+
+                // Store booking data in localStorage
+                localStorage.setItem('vehicleBookingData', JSON.stringify(bookingData));
+
+                // Redirect to payment gateway
+                window.location.href = 'payment-gateway.html';
+            });
+            
+            // New booking button click
+            newBookingBtn.addEventListener('click', () => {
+                resetBookingExperience();
+            });
+            
+            function validateInputs() {
+                if (!selectedVehicleType) {
+                    showAlert('Please select a vehicle type');
+                    return false;
+                }
+                
+                if (!selectedVehicleModel) {
+                    showAlert('Please select a vehicle model');
+                    return false;
+                }
+                
+                const pickupDate = document.getElementById('pickup-date').value;
+                const returnDate = document.getElementById('return-date').value;
+                
+                if (!pickupDate || !returnDate) {
+                    showAlert('Please select both pickup and return dates');
+                    return false;
+                }
+                
+                const startDate = new Date(pickupDate);
+                const endDate = new Date(returnDate);
+                
+                if (endDate < startDate) {
+                    showAlert('Return date must be after pickup date');
+                    return false;
+                }
+                
+                return true;
+            }
+            
+            function showAlert(message) {
+                // Create a custom alert element
+                const alertElement = document.createElement('div');
+                alertElement.className = 'fixed top-4 right-4 bg-red-100 border-l-4 border-red-500 text-red-700 p-4 rounded shadow-lg z-50';
+                alertElement.innerHTML = `
+                    <div class="flex">
+                        <div class="py-1"><svg class="h-6 w-6 text-red-500 mr-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
+                        </svg></div>
+                        <div>
+                            <p class="font-bold">Alert</p>
+                            <p>${message}</p>
+                        </div>
+                    </div>
+                `;
+                
+                document.body.appendChild(alertElement);
+                
+                // Remove the alert after 3 seconds
+                setTimeout(() => {
+                    alertElement.classList.add('opacity-0', 'transition-opacity', 'duration-500');
+                    setTimeout(() => {
+                        document.body.removeChild(alertElement);
+                    }, 500);
+                }, 3000);
+            }
+            
+            function formatDate(dateString) {
+                const date = new Date(dateString);
+                const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+                return date.toLocaleDateString('en-US', options);
+            }
+            
+            function generateConfirmationCode() {
+                const prefix = selectedVehicleType.substring(0, 2).toUpperCase();
+                const randomString = Math.random().toString(36).substring(2, 8).toUpperCase();
+                const timestamp = Date.now().toString().slice(-4);
+                return `${prefix}-${randomString}-${timestamp}`;
+            }
+            
+            function resetBookingExperience() {
+                // Reset vehicle selection
+                vehicleOptions.forEach(option => option.classList.remove('selected'));
+                selectedVehicleType = null;
+                
+                // Reset model selection
+                modelsContainer.innerHTML = '';
+                modelImage.classList.add('hidden');
+                modelName.textContent = '';
+                modelPrice.textContent = '';
+                selectedVehicleModel = null;
+                
+                // Reset dates
+                document.getElementById('pickup-date').value = '';
+                document.getElementById('return-date').value = '';
+                
+                // Reset additional services
+                serviceOptions.forEach(option => option.classList.remove('selected'));
+                selectedServices = [];
+                
+                // Hide summary and confirmation
+                document.getElementById('booking-summary').classList.add('hidden');
+                document.getElementById('booking-confirmation').classList.add('hidden');
+                
+                // Scroll to top
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        });
+    </script>
+</body>
+</html>

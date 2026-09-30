@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vehicle Rental Services - Travel Agency</title>
+    <link rel="stylesheet" href="rental-services-css.css">
+</head>
+<body>
+    <section class="rental-services">
+        <div class="container">
+            <h1 class="section-title">Our Vehicle Rental Services</h1>
+            
+            <div class="vehicle-categories">
+                <div class="category-grid">
+                    <!-- Car Rental -->
+                    <div class="vehicle-category car">
+                        <img src="car.jpg" alt="Car Rental">
+                        <h3>Car Rentals</h3>
+                        <p>Explore our diverse range of cars for your journey</p>
+                        <a href="booking.html" class="btn btn-primary">Book Now</a>
+                    </div>
+
+                    <!-- Bike Rental -->
+                    <div class="vehicle-category bike">
+                        <img src="bike.jpg" alt="Bike Rental">
+                        <h3>Bike Rentals</h3>
+                        <p>Experience freedom on two wheels</p>
+                        <a href="booking.html" class="btn btn-primary">Book Now</a>
+                    </div>
+
+                    <!-- Scooty Rental -->
+                    <div class="vehicle-category scooty">
+                        <img src="scooty.jpg" alt="Scooty Rental">
+                        <h3>Scooty Rentals</h3>
+                        <p>Perfect for urban exploration</p>
+                        <a href="booking.html" class="btn btn-primary">Book Now</a>
+                    </div>
+
+                    <!-- Minivan Rental -->
+                    <div class="vehicle-category minivan">
+                        <img src="minivan.jpg" alt="Minivan Rental">
+                        <h3>Minivan Rentals</h3>
+                        <p>Comfortable group transportation</p>
+                        <a href="booking.html" class="btn btn-primary">Book Now</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Booking Form -->
+            <div class="booking-section">
+                <h2>Rental Booking</h2>
+                <form id="rental-booking-form">
+                    <div class="form-group">
+                        <label for="vehicle-type">Vehicle Type</label>
+                        <select id="vehicle-type" name="vehicle-type" required>
+                            <option value="">Select Vehicle Type</option>
+                            <option value="car">Car</option>
+                            <option value="bike">Bike</option>
+                            <option value="scooty">Scooty</option>
+                            <option value="minivan">Minivan</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="rental-duration">Rental Duration</label>
+                        <select id="rental-duration" name="rental-duration" required>
+                            <option value="">Select Duration</option>
+                            <option value="daily">Daily</option>
+                            <option value="weekly">Weekly</option>
+                            <option value="monthly">Monthly</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="pickup-date">Pickup Date</label>
+                        <input type="date" id="pickup-date" name="pickup-date" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="return-date">Return Date</label>
+                        <input type="date" id="return-date" name="return-date" required>
+                    </div>
+
+                    <a href="booking.html" class="btn btn-primary">check availability</a>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <script src="rental.js"></script>
+</body>
+</html>

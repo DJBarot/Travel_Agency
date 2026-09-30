@@ -1,0 +1,30 @@
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f8f9fa;
+    background: linear-gradient(rgba(20, 20, 31, 0.7), rgba(20, 20, 31, 0.7)), url(../img/bg-hero.jpg);
+}
+.package-container {
+    max-width: 500px;
+    margin: auto;
+    background: white;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.package-img {
+    width: 100%;
+    height: 350px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+.btn-primary {
+    background-color: #7cc043;
+    border: none;
+}
+.btn-primary:hover {
+    background-color: #5ea631;
+}
+.list-group-item {
+    border: none;
+    font-weight: 500;
+}

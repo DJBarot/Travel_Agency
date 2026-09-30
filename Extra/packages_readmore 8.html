@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Travel Package</title>
+
+    <!-- Google Fonts & Bootstrap -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/php.css" rel="stylesheet">
+</head>
+<body>
+    <?php 
+        $package_id = 2; // Change this ID for each package dynamically
+    ?>
+    <div class="package-card">
+        <img src="img/package-8.jpg" alt="Kutch Package">
+        <div class="package-content">
+            <h2>Kutch - 3 Days Tour</h2>
+            <p>Experience the majestic landscapes of Kutch with our exclusive travel package, featuring the stunning White Rann, vibrant handicrafts, and rich cultural heritage.</p>
+            <h1>₹21,000</h1>
+            <div class="details"><strong>Duration:</strong> 3 Days / 2 Nights</div>
+            <div class="details"><strong>Hotel:</strong> 5-Star Luxury Hotel</div>
+            <div class="details"><strong>Includes:</strong> Hotel Stay, City Tour, Airport Transfers</div>
+            <div class="star-rating">★★★★★</div>
+
+            <div class="btn-container">
+                <a href="package-details8.php?package_id=<?= htmlspecialchars($package_id); ?>" class="btn btn-read">Read More</a>
+                <a href="book-now.php?package_id=<?= htmlspecialchars($package_id); ?>" class="btn btn-book">Book Now</a>
+                
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

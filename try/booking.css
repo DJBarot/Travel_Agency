@@ -1,0 +1,335 @@
+/* Modern and Clean Styles */
+:root {
+    --primary-color: #4CAF50;
+    --secondary-color: #2196F3;
+    --text-color: #333;
+    --border-radius: 8px;
+    --box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* ============================
+   General Page Styling
+   ============================ */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    background-color: #f5f5f5;
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    width: 100%;
+    overflow-x: hidden;
+    animation: fadeIn 1.2s ease-in-out;
+}
+
+/* ============================
+   Booking Container
+   ============================ */
+.booking-container {
+    max-width: 800px;
+    margin: 40px auto;
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    
+    /* Flexbox Layout for Side-by-Side Structure */
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* ============================
+   Left Section (Vehicle Selection & Form)
+   ============================ */
+.left-section {
+    width: 55%;
+}
+
+/* ============================
+   Right Section (Selected Vehicle & Summary)
+   ============================ */
+.right-section {
+    width: 40%;
+    text-align: center;
+}
+
+/* ============================
+   Vehicle Selection (Horizontal Scroll if Needed)
+   ============================ */
+.vehicle-selection {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.vehicle-selection label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 15px;
+    border: 2px solid #ddd;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.vehicle-selection label:hover {
+    border-color: var(--primary-color);
+    transform: translateY(-2px);
+}
+
+.vehicle-selection input[type="radio"]:checked + img + span {
+    color: var(--primary-color);
+    font-weight: bold;
+}
+
+/* ============================
+   Vehicle Image Styles
+   ============================ */
+.vehicle-selection img {
+    width: 150px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 5px;
+    margin: 10px 0;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+/* ============================
+   Selected Vehicle Display
+   ============================ */
+#selected-vehicle-image {
+    display: block;
+    width: 100%;
+    max-width: 350px;  /* Adjusted for landscape */
+    height: auto;
+    object-fit: cover;
+    margin-top: 20px;
+    border-radius: 10px;
+    border: 4px solid #2ecc71;
+    transition: transform 0.3s ease-in-out;
+}
+
+/* ============================
+   Form Adjustments
+   ============================ */
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: var(--text-color);
+}
+
+select, input[type="date"], input[type="text"] {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: var(--border-radius);
+    font-size: 16px;
+}
+
+/* ============================
+   Model Preview
+   ============================ */
+.model-preview {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.model-preview img {
+    max-width: 300px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+}
+
+/* ============================
+   Services Grid
+   ============================ */
+.services-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 25px;
+}
+
+/* ============================
+   Service Item
+   ============================ */
+.service-item {
+    background: white;
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px solid #dee2e6;
+}
+
+/* ============================
+   Button Styling
+   ============================ */
+.btn {
+    display: block;
+    width: 100%;
+    padding: 15px;
+    border: none;
+    border-radius: var(--border-radius);
+    background-color: var(--primary-color);
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+    background-color: #45a049;
+}
+
+.btn:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+}
+
+.btn-primary {
+    background: #4CAF50;
+    color: white;
+}
+
+.btn-primary:hover {
+    background: #45a049;
+}
+
+/* ============================
+   Summary
+   ============================ */
+.summary {
+    background: #e8f5e9;
+    padding: 20px;
+    border-radius: 8px;
+    margin-top: 30px;
+}
+
+/* ============================
+   Payment Section
+   ============================ */
+.payment-section {
+    background-color: white;
+    padding: 30px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+}
+
+/* ============================
+   Payment Details
+   ============================ */
+.payment-details {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 20px;
+}
+
+/* ============================
+   Back Button
+   ============================ */
+.back-btn {
+    background-color: var(--secondary-color);
+    margin-top: 15px;
+}
+
+.back-btn:hover {
+    background-color: #1976D2;
+}
+
+/* ============================
+   Landscape Mode Adjustments
+   (For screens wider than 900px)
+   ============================ */
+@media (min-width: 900px) {
+    .booking-container {
+        flex-direction: row;
+        width: 85%;
+    }
+
+    .vehicle-selection {
+        justify-content: space-between;
+    }
+
+    #selected-vehicle-image {
+        max-width: 100%;
+    }
+}
+
+h2, h3 {
+    color: var(--text-color);
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+/* ============================
+   Form Section
+   ============================ */
+.form-section {
+    margin-bottom: 30px;
+    padding: 25px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    border-left: 4px solid #4CAF50;
+}
+
+.form-section h3 {
+    margin-bottom: 20px;
+    color: #2c3e50;
+    font-size: 1.5rem;
+}
+
+/* ============================
+   Vehicle Option
+   ============================ */
+.vehicle-option {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    background: white;
+    border-radius: 8px;
+    border: 1px solid #dee2e6;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.vehicle-option:hover {
+    transform: translateX(10px);
+    border-color: #4CAF50;
+}
+
+.vehicle-option img {
+    width: 120px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 6px;
+    margin-right: 20px;
+}
+
+.vehicle-info {
+    flex-grow: 1;
+}
+
+.vehicle-info span {
+    display: block;
+    margin-top: 5px;
+    color: #6c757d;
+}
+
+/* ============================
+   Date Inputs
+   ============================ */
+.date-inputs {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}

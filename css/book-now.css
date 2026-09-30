@@ -1,0 +1,47 @@
+html,body { 
+    font-family: 'Poppins', sans-serif; 
+    background: linear-gradient(rgba(20, 20, 31, .7), rgba(20, 20, 31, .7)), url(../img/bg-hero.jpg); 
+}
+.booking-container { 
+    max-width: 500px; margin: auto; 
+    background: white; 
+    border-radius: 10px; 
+    padding: 25px; 
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
+    margin-top: 50px; 
+}
+h1 { 
+    text-align: center; font-weight: 600; color: #333; 
+}
+label { 
+    font-weight: 500; margin-top: 10px; 
+}
+.form-control { 
+    border-radius: 8px; 
+}
+.btn-primary { 
+    background-color: #7cc043; 
+    border: none; 
+    font-size: 18px; 
+    padding: 10px; 
+    border-radius: 8px; 
+    width: 100%; 
+    margin-top: 15px; 
+}
+.btn-primary:hover { 
+    background-color: #5ea631; 
+}
+.price-box { 
+    font-size: 20px; 
+    font-weight: 600; 
+    color: #d9534f; 
+    text-align: center; 
+    margin-top: 15px; 
+}
+.hotel-details { 
+    display: none; 
+    background-color: #f8f9fa; 
+    padding: 15px; 
+    border-radius: 8px; 
+    margin-top: 10px; 
+}
